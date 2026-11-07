@@ -1148,12 +1148,12 @@ document.addEventListener(
         ) {
 
             document.title =
-                "Musa Aftab — Portfolio";
+                "Musa Aftab | Web Developer";
 
         } else {
 
             document.title =
-                "Musa Aftab — Digital Portfolio";
+                "Musa Aftab | Web Developer & Website Designer";
 
         }
 
