@@ -2566,3 +2566,361 @@ img {
     }
 
 }
+
+/* =========================================================
+   VISUAL POLISH — DEPTH, DETAILS & ACCESSIBILITY
+   Additive layer: preserves the original layout and copy.
+========================================================= */
+
+html {
+    scroll-padding-top: 105px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    isolation: isolate;
+}
+
+/* Refined glass navigation */
+.navbar {
+    border-color: rgba(255, 255, 255, .14);
+    box-shadow:
+        0 16px 45px rgba(0, 0, 0, .28),
+        inset 0 1px 0 rgba(255, 255, 255, .045);
+}
+
+.navbar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+        115deg,
+        rgba(255, 255, 255, .18),
+        transparent 32%,
+        transparent 72%,
+        rgba(196, 0, 0, .22)
+    );
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: .75;
+}
+
+.nav-link:focus-visible,
+.nav-cta:focus-visible,
+.button:focus-visible,
+.contact-link:focus-visible,
+.project-card:focus-visible,
+.skill-row:focus-visible,
+.modal-close:focus-visible,
+.modal-cta:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, .9);
+    outline-offset: 5px;
+}
+
+/* Hero: more contrast and subtle motion without changing the composition */
+.hero {
+    isolation: isolate;
+}
+
+.hero-grid-lines {
+    background-size: 65px 65px;
+    animation: heroGridDrift 34s linear infinite;
+    will-change: background-position;
+}
+
+@keyframes heroGridDrift {
+    from {
+        background-position: 0 0, 0 0;
+    }
+
+    to {
+        background-position: 130px 65px, 65px 130px;
+    }
+}
+
+.hero-content {
+    filter: drop-shadow(0 12px 28px rgba(0, 0, 0, .16));
+}
+
+.hero-title {
+    text-shadow: 0 12px 42px rgba(0, 0, 0, .24);
+}
+
+.hero-word.outline {
+    -webkit-text-stroke-color: rgba(220, 220, 220, .62);
+}
+
+.hero-intro {
+    color: #a0a0a0;
+    text-wrap: pretty;
+}
+
+.hero-kicker {
+    color: #777;
+}
+
+/* Portrait: restrained 3D depth and a refined edge highlight */
+.hero-portrait {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.portrait-frame {
+    isolation: isolate;
+    transform: rotateY(-2.5deg) rotateX(1deg) translateZ(0);
+    transform-origin: center;
+    box-shadow:
+        0 32px 85px rgba(0, 0, 0, .52),
+        0 0 0 1px rgba(255, 255, 255, .035);
+    transition:
+        transform .8s cubic-bezier(.2, .7, .2, 1),
+        box-shadow .8s ease;
+}
+
+.portrait-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border: 1px solid rgba(255, 255, 255, .12);
+    background:
+        linear-gradient(
+            125deg,
+            rgba(255, 255, 255, .12),
+            transparent 22%,
+            transparent 78%,
+            rgba(196, 0, 0, .09)
+        );
+    pointer-events: none;
+}
+
+.hero-portrait:hover .portrait-frame {
+    transform: rotateY(0deg) rotateX(0deg) translateZ(0);
+    box-shadow:
+        0 38px 100px rgba(0, 0, 0, .62),
+        0 0 34px rgba(196, 0, 0, .08);
+}
+
+.portrait-side-label {
+    color: #777;
+}
+
+/* Buttons: crisp hover feedback while preserving their original shape */
+.button {
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.button-light {
+    box-shadow:
+        0 8px 28px rgba(255, 255, 255, .08),
+        inset 0 1px 0 rgba(255, 255, 255, .85);
+}
+
+.button-light:hover {
+    background: #e7e7e7;
+    box-shadow: 0 12px 32px rgba(255, 255, 255, .12);
+}
+
+.button-outline {
+    background: rgba(255, 255, 255, .018);
+}
+
+.button-outline:hover {
+    background: rgba(255, 255, 255, .07);
+}
+
+/* Sections and cards get depth from light, borders and hover states */
+.section {
+    scroll-margin-top: 90px;
+}
+
+.section-top {
+    position: relative;
+}
+
+.stat {
+    position: relative;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, .018),
+            transparent 72%
+        );
+    transition: background .35s ease;
+}
+
+.stat:hover {
+    background: rgba(255, 255, 255, .035);
+}
+
+.skill-row {
+    position: relative;
+    transform: translateZ(0);
+    transition:
+        background .3s ease,
+        padding .3s ease,
+        transform .3s ease;
+}
+
+.skill-row::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 22%;
+    bottom: 22%;
+    width: 2px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform .3s ease;
+}
+
+.skill-row:hover {
+    transform: translateX(5px);
+}
+
+.skill-row:hover::before {
+    transform: scaleY(1);
+}
+
+.project-card {
+    position: relative;
+    transform-style: preserve-3d;
+    transition:
+        filter .35s ease,
+        transform .2s ease;
+}
+
+.project-image {
+    border-radius: 3px;
+    box-shadow: 0 16px 42px rgba(0, 0, 0, .18);
+    transition:
+        border-color .35s ease,
+        box-shadow .5s ease;
+}
+
+.project-card:hover .project-image {
+    border-color: rgba(255, 255, 255, .22);
+    box-shadow:
+        0 24px 58px rgba(0, 0, 0, .36),
+        0 0 28px rgba(196, 0, 0, .06);
+}
+
+.project-image img {
+    will-change: transform, filter;
+}
+
+.project-number {
+    z-index: 2;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, .65);
+}
+
+.work-statement {
+    position: relative;
+}
+
+.contact-link {
+    position: relative;
+}
+
+.contact-link:hover {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, .035),
+            rgba(255, 255, 255, .008)
+        );
+}
+
+/* Cleaner loading/reveal compositing */
+.reveal {
+    backface-visibility: hidden;
+}
+
+.tilt-card {
+    perspective: 1000px;
+}
+
+/* Keep the interface comfortable on touch devices */
+@media (hover: none), (pointer: coarse) {
+    body {
+        cursor: auto;
+    }
+
+    .skill-row,
+    .button {
+        cursor: pointer;
+    }
+
+    .portrait-frame {
+        transform: none;
+    }
+
+    .hero-portrait:hover .portrait-frame {
+        transform: none;
+    }
+
+    .skill-row:hover {
+        transform: none;
+    }
+
+    .skill-row:hover::before {
+        transform: scaleY(0);
+    }
+}
+
+/* Respect visitors who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Small screens: keep the refined effects light and legible */
+@media (max-width: 900px) {
+    .portrait-frame {
+        transform: none;
+    }
+
+    .hero-portrait:hover .portrait-frame {
+        transform: none;
+    }
+
+    .hero-intro {
+        color: #b0b0b0;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-grid-lines {
+        opacity: .16;
+    }
+
+    .hero-title {
+        text-shadow: 0 8px 28px rgba(0, 0, 0, .28);
+    }
+
+    .project-image {
+        box-shadow: 0 12px 30px rgba(0, 0, 0, .22);
+    }
+}
